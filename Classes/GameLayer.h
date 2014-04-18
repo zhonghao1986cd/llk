@@ -62,6 +62,8 @@ private:
 	void onHelpCallBack();
 	void onRefreshLayout();
 	void onBacktoMainMenu();
+	void BacktoMainMenu(cocos2d::CCObject *pObject);
+	void onRestartGame(cocos2d::CCObject *pObject);
 
 	//score record
 	void ScoreCalcu();

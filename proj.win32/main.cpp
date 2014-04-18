@@ -2,8 +2,6 @@
 #include "AppDelegate.h"
 #include "CCEGLView.h"
 #include "../Classes/GameScene.h"
-#include "basefun.h"
-#include <string>
 
 USING_NS_CC;
 
@@ -18,9 +16,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     // create the application instance
     AppDelegate app;
     CCEGLView* eglView = CCEGLView::sharedOpenGLView();
-	std::string title = "连连看";
-    eglView->setViewName(GBKToUTF(title));
-    eglView->setFrameSize(640,960); //设置屏幕的大小
-	eglView->setFrameZoomFactor(0.6f);
+    eglView->setViewName("HelloCpp");
+    eglView->setFrameSize(640, 960);
+	eglView->setFrameZoomFactor(0.7f);
     return CCApplication::sharedApplication()->run();
 }

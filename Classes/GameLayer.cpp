@@ -4,6 +4,7 @@
 #include "GameStartInterfaceSce.h"
 #include "PoptipLayer.h"
 #include "PopupLayer.h"
+#include "GameScene.h"
 
 #define DELAYTIME 0.2
 
@@ -569,8 +570,22 @@ void  GameLayer::GameSchedule(float t)
 		GameLayer::addChild(font);
 		GameLayer::unschedule(SEL_SCHEDULE(&GameLayer::GameSchedule));
 		GameLayer::setTouchEnabled(false);
-		PoptipLayer *pl = PoptipLayer::create("popuplayer/BackGround.png");
-		GameLayer::addChild(pl);
+
+		//游戏结束弹出提示对话框
+		PoptipLayer *pl = PoptipLayer::create("popuplayer/BackGround2.png");
+		CCPoint TitlePosition = ccp(320, 580);
+		std::string Title = "Game Over!";
+		ccColor3B TitleColor = ccc3(255, 0, 0);
+		pl->setTitle(Title.c_str(), TitlePosition, TitleColor, 50);
+		CCPoint positon1 = ccp(220, 400);
+		std::string ReturnTip = "返回主菜单";
+		pl->addButton("back.png", "back.png", GBKToUTF(ReturnTip), positon1, SEL_MenuHandler(&GameLayer::BacktoMainMenu),0);
+		CCPoint positon2 = ccp(400, 400);
+		std::string RestartTip = "重新开始";
+		pl->addButton("play.png", "play.png", GBKToUTF(RestartTip), positon2, SEL_MenuHandler(&GameLayer::onRestartGame), 0);
+
+		GameLayer::addChild(pl, 2);
+
 		return;
 	}
 }
@@ -735,6 +750,13 @@ void GameLayer::onBacktoMainMenu()
 	CCDirector::sharedDirector()->replaceScene(ts);
 }
 
+void GameLayer::BacktoMainMenu(cocos2d::CCObject *pObject)
+{
+	CCScene *pScene = GameStartInterface::scene();
+	CCTransitionScene * ts=CCTransitionPageTurn::create(0.5, pScene, false);
+	CCDirector::sharedDirector()->replaceScene(ts);
+}
+
 void GameLayer::onSuspend()
 {
 	CCSize winSize = CCDirector::sharedDirector()->getWinSize();
@@ -792,4 +814,11 @@ void GameLayer::SaveScore()
 	int hightestScode = CCUserDefault::sharedUserDefault()->getIntegerForKey("hightest_score", 0);
 	if (hightestScode < m_gameScoreRecode)
 		CCUserDefault::sharedUserDefault()->setIntegerForKey("hightest_score", m_gameScoreRecode);
+}
+
+void GameLayer::onRestartGame(cocos2d::CCObject *pObject)
+{
+	CCScene *pScene = GameScene::create();
+	CCTransitionScene * s1=CCTransitionMoveInT::create(0.5, pScene);
+	CCDirector::sharedDirector()->replaceScene(s1);
 }

@@ -43,15 +43,12 @@ bool PopupLayer::init(){
         menu->setPosition(CCPointZero);
         setMenuButton(menu);
 
-
 		//用于实现背景变暗效果
 		CCSprite *backSpri = CCSprite::create("popuplayer/back.png");
 		backSpri->setOpacity(40);
 		backSpri->setAnchorPoint(ccp(0,0));
 		backSpri->setPosition(ccp(0,0));
-		this->addChild(backSpri);
-
-		
+		this->addChild(backSpri);	
 
 		//开启触摸事件的捕获
         setTouchEnabled(true);
