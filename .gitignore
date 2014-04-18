@@ -6,5 +6,5 @@ proj.ios/
 proj.linux/
 proj.mac/
 proj.marmalade/
-*sdf
-*suo
+*.sdf
+*.suo
